@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Post a used textbook for sale or swap on CampusSwap.">
+  <title>Post a Book – CampusSwap</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="logo" href="index.html">Campus<span>Swap</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#listings">Listings</a></li>
+        <li><a href="index.html#how">How it works</a></li>
+        <li><a class="btn btn-small" href="post.html" aria-current="page">Post a book</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="form-page">
+    <h1>Post a book</h1>
+    <p>Fill in the details below. Fields marked with * are required.</p>
+
+    <form class="post-form" action="#" method="post">
+      <fieldset>
+        <legend>Book details</legend>
+
+        <label for="title">Book title *</label>
+        <input id="title" name="title" type="text" required autocomplete="off">
+
+        <label for="course">Course code *</label>
+        <input id="course" name="course" type="text" required placeholder="e.g. MIS 457">
+
+        <label for="condition">Condition *</label>
+        <select id="condition" name="condition" required>
+          <option value="">Choose one</option>
+          <option>Like new</option>
+          <option>Good</option>
+          <option>Fair</option>
+        </select>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Offer type *</legend>
+        <div class="radio">
+          <input id="sell" name="offer" type="radio" value="sell" required>
+          <label for="sell">Sell</label>
+        </div>
+        <div class="radio">
+          <input id="swap" name="offer" type="radio" value="swap">
+          <label for="swap">Swap</label>
+        </div>
+
+        <label for="price">Price (₺)</label>
+        <input id="price" name="price" type="number" min="0" max="5000" step="10">
+      </fieldset>
+
+      <fieldset>
+        <legend>Your contact</legend>
+
+        <label for="name">Full name *</label>
+        <input id="name" name="name" type="text" required autocomplete="name">
+
+        <label for="email">University email *</label>
+        <input id="email" name="email" type="email" required autocomplete="email">
+      </fieldset>
+
+      <button class="btn" type="submit">Publish listing</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 CampusSwap · MIS 457 Team Project</p>
+  </footer>
+</body>
+</html>
