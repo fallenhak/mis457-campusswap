@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CampusSwap: buy, sell and swap used textbooks with students on your campus.">
+  <title>CampusSwap – Student Textbook Exchange</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="logo" href="index.html">Campus<span>Swap</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="#listings">Listings</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a class="btn btn-small" href="post.html">Post a book</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <h1>Swap textbooks, save money</h1>
+      <p>Buy, sell or trade used course books with students on your campus. No shipping, no middleman.</p>
+      <form class="search" role="search" action="#listings">
+        <label for="q">Search by title or course code</label>
+        <div class="search-row">
+          <input id="q" name="q" type="search" placeholder="e.g. MIS 457">
+          <button class="btn" type="submit">Search</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="listings" aria-labelledby="listings-title">
+      <h2 id="listings-title">Latest listings</h2>
+      <div class="cards">
+        <article class="card">
+          <p class="tag">MIS 457</p>
+          <h3>Web Development with HTML &amp; CSS</h3>
+          <p>Good condition, some highlights.</p>
+          <p class="price">₺250 <span>· Sell</span></p>
+        </article>
+        <article class="card">
+          <p class="tag">ECON 101</p>
+          <h3>Principles of Economics</h3>
+          <p>Like new, 9th edition.</p>
+          <p class="price">₺400 <span>· Sell</span></p>
+        </article>
+        <article class="card">
+          <p class="tag">STAT 201</p>
+          <h3>Introductory Statistics</h3>
+          <p>Looking to swap for a MATH 102 book.</p>
+          <p class="price">Free <span>· Swap</span></p>
+        </article>
+        <article class="card">
+          <p class="tag">MIS 301</p>
+          <h3>Database Systems</h3>
+          <p>Notes included in the margins.</p>
+          <p class="price">₺300 <span>· Sell</span></p>
+        </article>
+        <article class="card">
+          <p class="tag">MGMT 210</p>
+          <h3>Organizational Behavior</h3>
+          <p>Cover slightly worn.</p>
+          <p class="price">₺180 <span>· Sell</span></p>
+        </article>
+        <article class="card">
+          <p class="tag">ENG 102</p>
+          <h3>Academic Writing</h3>
+          <p>Swap for any business book.</p>
+          <p class="price">Free <span>· Swap</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="how" class="how" aria-labelledby="how-title">
+      <h2 id="how-title">How it works</h2>
+      <ol class="steps">
+        <li><h3>Post</h3><p>List your book with its course code and price in under a minute.</p></li>
+        <li><h3>Connect</h3><p>Interested students message you through the site.</p></li>
+        <li><h3>Meet</h3><p>Hand over the book on campus and you're done.</p></li>
+      </ol>
+      <a class="btn" href="post.html">Post your first book</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 CampusSwap · MIS 457 Team Project</p>
+  </footer>
+</body>
+</html>
