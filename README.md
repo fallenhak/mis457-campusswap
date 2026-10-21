@@ -11,3 +11,9 @@ A platform where students buy, sell and swap used textbooks on campus.
 - `style.css` – shared styles, responsive at 375px and 1280px
 
 Live: https://fallenhak.github.io/mis457-campusswap/
+
+## Lighthouse
+
+Accessibility score: **100**
+
+![Lighthouse report](lighthouse-accessibility.png)
