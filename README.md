@@ -4,6 +4,14 @@ MIS 457 – Web Based Application Programming · Team Project
 
 A platform where students buy, sell and swap used textbooks on campus.
 
+## Team
+
+| Name | Student ID |
+|---|---|
+| Kerim Burak Tuz | 240106436 |
+| Yusuf Efe Akar | 240106421 |
+| Ali Yusuf Bayram | 240106419 |
+
 ## Week 2 – Static prototype
 
 - `index.html` – home page (semantic HTML, Flexbox header, mobile-first card grid)
