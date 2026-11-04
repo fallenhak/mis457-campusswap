@@ -6,6 +6,7 @@
   <meta name="description" content="Post a used textbook for sale or swap on CampusSwap.">
   <title>Post a Book – CampusSwap</title>
   <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -26,23 +27,28 @@
     <h1>Post a book</h1>
     <p>Fill in the details below. Fields marked with * are required.</p>
 
-    <form class="post-form" action="#" method="post">
+    <div id="form-status" class="form-status" role="alert" hidden></div>
+
+    <form class="post-form" id="post-form" action="#" method="post" novalidate>
       <fieldset>
         <legend>Book details</legend>
 
         <label for="title">Book title *</label>
-        <input id="title" name="title" type="text" required autocomplete="off">
+        <input id="title" name="title" type="text" required autocomplete="off" aria-describedby="title-error">
+        <p class="error" id="title-error"></p>
 
         <label for="course">Course code *</label>
-        <input id="course" name="course" type="text" required placeholder="e.g. MIS 457">
+        <input id="course" name="course" type="text" required placeholder="e.g. MIS 457" aria-describedby="course-error">
+        <p class="error" id="course-error"></p>
 
         <label for="condition">Condition *</label>
-        <select id="condition" name="condition" required>
+        <select id="condition" name="condition" required aria-describedby="condition-error">
           <option value="">Choose one</option>
           <option>Like new</option>
           <option>Good</option>
           <option>Fair</option>
         </select>
+        <p class="error" id="condition-error"></p>
 
         <label for="description">Description</label>
         <textarea id="description" name="description" rows="4"></textarea>
@@ -50,6 +56,7 @@
 
       <fieldset>
         <legend>Offer type *</legend>
+        <p class="error" id="offer-error"></p>
         <div class="radio">
           <input id="sell" name="offer" type="radio" value="sell" required>
           <label for="sell">Sell</label>
@@ -60,17 +67,20 @@
         </div>
 
         <label for="price">Price (₺)</label>
-        <input id="price" name="price" type="number" min="0" max="5000" step="10">
+        <input id="price" name="price" type="number" min="0" max="5000" step="10" aria-describedby="price-error">
+        <p class="error" id="price-error"></p>
       </fieldset>
 
       <fieldset>
         <legend>Your contact</legend>
 
         <label for="name">Full name *</label>
-        <input id="name" name="name" type="text" required autocomplete="name">
+        <input id="name" name="name" type="text" required autocomplete="name" aria-describedby="name-error">
+        <p class="error" id="name-error"></p>
 
         <label for="email">University email *</label>
-        <input id="email" name="email" type="email" required autocomplete="email">
+        <input id="email" name="email" type="email" required autocomplete="email" aria-describedby="email-error">
+        <p class="error" id="email-error"></p>
       </fieldset>
 
       <button class="btn" type="submit">Publish listing</button>
