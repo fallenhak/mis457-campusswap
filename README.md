@@ -11,6 +11,7 @@ A platform where students buy, sell and swap used textbooks on campus.
 | Kerim Burak Tuz | 240106436 |
 | Yusuf Efe Akar | 240106421 |
 | Ali Yusuf Bayram | 240106419 |
+| Utku Kaan Yücebıyık | 240106416 |
 
 ## Week 2 – Static prototype
 
