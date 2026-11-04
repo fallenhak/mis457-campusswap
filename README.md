@@ -20,6 +20,14 @@ A platform where students buy, sell and swap used textbooks on campus.
 
 Live: https://fallenhak.github.io/mis457-campusswap/
 
+## Week 3 – JavaScript and the DOM
+
+- `app.js` – all JavaScript, loaded with `defer` on both pages
+- **Dynamic list:** the listing cards on the home page are built from the `books` array with `createElement` / `append`
+- **Search:** filters the array by title or course code as you type, with a live result count and an empty state
+- **Validation:** the "Post a book" form uses `preventDefault()` and shows a clear error message under each invalid field (title, course code format, condition, sell/swap, price, name, email), plus a summary message at the top
+- **Bonus:** a valid listing is saved to `localStorage` and appears first on the home page with a "New" badge
+
 ## Lighthouse
 
 Accessibility score: **100**
