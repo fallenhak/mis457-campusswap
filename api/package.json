@@ -1,0 +1,15 @@
+{
+  "name": "campusswap-api",
+  "version": "1.0.0",
+  "description": "CampusSwap REST API (MIS 457 team project, Week 5)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0"
+  }
+}

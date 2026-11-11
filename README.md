@@ -43,6 +43,55 @@ Live: https://fallenhak.github.io/mis457-campusswap/
 
 Run it with Live Server (Go Live) or the live link: `fetch` does not work when the file is opened with a double-click.
 
+## Week 5 – Node.js, Express and our own REST API
+
+The listings now come from our own API in the `api` folder, not from `data.json`.
+
+### REST table
+
+| Method | URL | Meaning | Success | Errors |
+|---|---|---|---|---|
+| GET | `/api/books` | List all books | 200 | – |
+| GET | `/api/books/:id` | One book | 200 | 404 |
+| POST | `/api/books` | Create a book | 201 | 400 |
+| PUT | `/api/books/:id` | Update a book | 200 | 400, 404 |
+| DELETE | `/api/books/:id` | Delete a book | 204 | 404 |
+
+Every error has the same format: `{ "error": "message" }`.
+
+A book looks like this:
+
+```json
+{ "id": 1, "course": "MIS 457", "title": "Web Development with HTML & CSS", "note": "Good condition, some highlights.", "offer": "sell", "price": 250 }
+```
+
+For POST, `title`, `course` and `offer` (`"sell"` or `"swap"`) are required, and a book you sell needs a `price` greater than 0.
+
+### Files
+
+- `api/server.js` – the Express server: `express.json()`, `cors()`, a logger middleware, the five routes and the error handlers. The data is in an array, so restarting the server resets it.
+- `api/package.json` – the packages (`express`, `cors`). `node_modules` is in `.gitignore`.
+- `app.js` – the home page loads the books with `GET /api/books`; the "Post a book" form sends the listing with `POST /api/books` and shows the API's error message if the API answers 400.
+- `postman/CampusSwap.postman_collection.json` – a Postman collection with all requests, including the 400 and 404 cases.
+
+### How to run
+
+1. Start the API:
+
+   ```
+   cd api
+   npm install
+   npm start
+   ```
+
+   The terminal says `CampusSwap API on http://localhost:3000`.
+2. Open `index.html` with Live Server (Go Live).
+3. Postman: Import → `postman/CampusSwap.postman_collection.json`, then send the requests.
+
+If the API is not running, the home page shows the error state with a "Try again" button.
+
+The live link is on GitHub Pages, which only hosts static files and cannot run the Express server. The live demo therefore still reads `data.json` (the Week 4 version). The API version runs on your own computer.
+
 ## Lighthouse
 
 Accessibility score: **100**

@@ -1,12 +1,17 @@
-// CampusSwap – Week 4: load the listings with fetch (Week 3: JavaScript and the DOM)
+// CampusSwap – Week 5: the frontend talks to our own Express API (see api/server.js)
 'use strict';
 
 const STORAGE_KEY = 'campusswap-listings';
 
-// The listings live in a JSON file now, not in an array in this file
-const DATA_URL = 'data.json';
+// Our own REST API. Start it first: cd api → npm install → npm start
+const API_URL = 'http://localhost:3000/api/books';
 
-// Listings posted from the form are kept in this browser
+// GitHub Pages can only host static files, so it cannot run the Express server.
+// The live demo there keeps using data.json and localStorage (Week 4 version).
+const ON_GITHUB_PAGES = location.hostname.endsWith('github.io');
+const BOOKS_URL = ON_GITHUB_PAGES ? 'data.json' : API_URL;
+
+// Only for the GitHub Pages demo: listings posted from the form are kept in this browser
 function loadSavedBooks() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -98,6 +103,7 @@ function renderError(message, onRetry) {
 
   const text = document.createElement('p');
   text.textContent = `Something went wrong. We could not load the listings (${message}).`;
+  if (!ON_GITHUB_PAGES) text.textContent += ' Is the API running? Start it with "npm start" in the api folder.';
 
   const retry = document.createElement('button');
   retry.className = 'btn btn-small';
@@ -112,9 +118,22 @@ function renderError(message, onRetry) {
 
 // 404 and 500 do not go to catch by themselves, so check response.ok
 async function fetchBooks() {
-  const response = await fetch(DATA_URL);
+  const response = await fetch(BOOKS_URL);
   if (!response.ok) throw new Error('HTTP ' + response.status);
   return response.json();
+}
+
+// POST a new listing to the API. The API answers 201 with the new book,
+// or 400 with { "error": "message" } when the data is not valid.
+async function createBook(book) {
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(book)
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || 'HTTP ' + response.status);
+  return data;
 }
 
 function initHomePage() {
@@ -137,7 +156,8 @@ function initHomePage() {
     renderLoading();
     try {
       const books = await fetchBooks();
-      allBooks = [...loadSavedBooks(), ...books];
+      // With the API, new listings are already in the response
+      allBooks = ON_GITHUB_PAGES ? [...loadSavedBooks(), ...books] : books;
       loaded = true;
       filter(); // success (or empty, if the search box already has text)
     } catch (error) {
@@ -212,7 +232,7 @@ function initPostPage() {
     radio.addEventListener('change', () => validateOffer(form))
   );
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const results = Object.keys(rules).map(validateField);
@@ -228,19 +248,37 @@ function initPostPage() {
     }
 
     const offer = form.querySelector('input[name="offer"]:checked').value;
-    saveBook({
+    const book = {
       course: form.elements.course.value.trim().toUpperCase(),
       title: form.elements.title.value.trim(),
       note: form.elements.description.value.trim(),
       condition: form.elements.condition.value,
       offer,
-      price: offer === 'sell' ? Number(form.elements.price.value) : 0,
-      isNew: true
-    });
+      price: offer === 'sell' ? Number(form.elements.price.value) : 0
+    };
+
+    if (ON_GITHUB_PAGES) {
+      saveBook({ ...book, isNew: true });
+    } else {
+      // Send the listing to our API and wait for the answer
+      const button = form.querySelector('button[type="submit"]');
+      button.disabled = true;
+      status.className = 'form-status';
+      status.textContent = 'Publishing...';
+      try {
+        await createBook(book);
+      } catch (error) {
+        status.className = 'form-status is-error';
+        status.textContent = `Your listing was not saved (${error.message}).`;
+        return;
+      } finally {
+        button.disabled = false;
+      }
+    }
 
     status.className = 'form-status is-success';
     status.innerHTML = '';
-    status.append(`Your book "${form.elements.title.value.trim()}" is now listed. `);
+    status.append(`Your book "${book.title}" is now listed. `);
     const link = document.createElement('a');
     link.href = 'index.html#listings';
     link.textContent = 'See it in the listings';

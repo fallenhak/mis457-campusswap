@@ -1,0 +1,314 @@
+{
+  "info": {
+    "name": "CampusSwap API",
+    "description": "MIS 457 team project. All requests for the CampusSwap books API.\n\nStart the server first: cd api, npm install, npm start. The data is in an array, so restarting the server resets it.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "List all books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expected: 200 and an array of books."
+      },
+      "response": []
+    },
+    {
+      "name": "Get one book",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books",
+            "1"
+          ]
+        },
+        "description": "Expected: 200 and the book with id 1."
+      },
+      "response": []
+    },
+    {
+      "name": "Get one book - not found",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/99",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books",
+            "99"
+          ]
+        },
+        "description": "Expected: 404 and { \"error\": \"Book not found\" }."
+      },
+      "response": []
+    },
+    {
+      "name": "Create a book",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/books",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expected: 201 and the new book with its id.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Calculus: Early Transcendentals\",\n  \"course\": \"MATH 101\",\n  \"note\": \"8th edition, clean pages.\",\n  \"condition\": \"Good\",\n  \"offer\": \"sell\",\n  \"price\": 350\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create a book - swap",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/books",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expected: 201. The price of a swap is always 0.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Introduction to Psychology\",\n  \"course\": \"PSY 101\",\n  \"note\": \"Swap for a MIS book.\",\n  \"condition\": \"Fair\",\n  \"offer\": \"swap\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create a book - missing fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/books",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expected: 400 and { \"error\": \"title, course and offer are required\" }.",
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create a book - sell without price",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/books",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expected: 400, a book you sell needs a price.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Marketing Management\",\n  \"course\": \"MKT 201\",\n  \"offer\": \"sell\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update a book",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books",
+            "1"
+          ]
+        },
+        "description": "Expected: 200 and the updated book.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Web Development with HTML, CSS & JavaScript\",\n  \"price\": 275\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update a book - not found",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/99",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books",
+            "99"
+          ]
+        },
+        "description": "Expected: 404.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Nothing\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a book",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books",
+            "2"
+          ]
+        },
+        "description": "Expected: 204 and no body. Send it again to get 404."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a book - not found",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/99",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "books",
+            "99"
+          ]
+        },
+        "description": "Expected: 404."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
