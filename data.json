@@ -1,0 +1,8 @@
+[
+  { "id": 1, "course": "MIS 457", "title": "Web Development with HTML & CSS", "note": "Good condition, some highlights.", "offer": "sell", "price": 250 },
+  { "id": 2, "course": "ECON 101", "title": "Principles of Economics", "note": "Like new, 9th edition.", "offer": "sell", "price": 400 },
+  { "id": 3, "course": "STAT 201", "title": "Introductory Statistics", "note": "Looking to swap for a MATH 102 book.", "offer": "swap", "price": 0 },
+  { "id": 4, "course": "MIS 301", "title": "Database Systems", "note": "Notes included in the margins.", "offer": "sell", "price": 300 },
+  { "id": 5, "course": "MGMT 210", "title": "Organizational Behavior", "note": "Cover slightly worn.", "offer": "sell", "price": 180 },
+  { "id": 6, "course": "ENG 102", "title": "Academic Writing", "note": "Swap for any business book.", "offer": "swap", "price": 0 }
+]

@@ -1,17 +1,10 @@
-// CampusSwap – Week 3: JavaScript and the DOM
+// CampusSwap – Week 4: load the listings with fetch (Week 3: JavaScript and the DOM)
 'use strict';
 
 const STORAGE_KEY = 'campusswap-listings';
 
-// Dynamic list: every card on the home page is made from this array
-const books = [
-  { course: 'MIS 457', title: 'Web Development with HTML & CSS', note: 'Good condition, some highlights.', offer: 'sell', price: 250 },
-  { course: 'ECON 101', title: 'Principles of Economics', note: 'Like new, 9th edition.', offer: 'sell', price: 400 },
-  { course: 'STAT 201', title: 'Introductory Statistics', note: 'Looking to swap for a MATH 102 book.', offer: 'swap', price: 0 },
-  { course: 'MIS 301', title: 'Database Systems', note: 'Notes included in the margins.', offer: 'sell', price: 300 },
-  { course: 'MGMT 210', title: 'Organizational Behavior', note: 'Cover slightly worn.', offer: 'sell', price: 180 },
-  { course: 'ENG 102', title: 'Academic Writing', note: 'Swap for any business book.', offer: 'swap', price: 0 }
-];
+// The listings live in a JSON file now, not in an array in this file
+const DATA_URL = 'data.json';
 
 // Listings posted from the form are kept in this browser
 function loadSavedBooks() {
@@ -70,6 +63,7 @@ function renderBooks(list) {
   const count = document.querySelector('#result-count');
   cards.innerHTML = '';
 
+  // Empty state
   if (list.length === 0) {
     const empty = document.createElement('p');
     empty.className = 'empty';
@@ -82,12 +76,55 @@ function renderBooks(list) {
   count.textContent = `${list.length} ${list.length === 1 ? 'book' : 'books'} found`;
 }
 
+// Loading state
+function renderLoading() {
+  const cards = document.querySelector('#cards');
+  cards.innerHTML = '';
+  const loading = document.createElement('p');
+  loading.className = 'loading';
+  loading.textContent = 'Loading books...';
+  cards.append(loading);
+  document.querySelector('#result-count').textContent = '';
+}
+
+// Error state, with a button to try again
+function renderError(message, onRetry) {
+  const cards = document.querySelector('#cards');
+  cards.innerHTML = '';
+
+  const box = document.createElement('div');
+  box.className = 'load-error';
+  box.setAttribute('role', 'alert');
+
+  const text = document.createElement('p');
+  text.textContent = `Something went wrong. We could not load the listings (${message}).`;
+
+  const retry = document.createElement('button');
+  retry.className = 'btn btn-small';
+  retry.type = 'button';
+  retry.textContent = 'Try again';
+  retry.addEventListener('click', onRetry);
+
+  box.append(text, retry);
+  cards.append(box);
+  document.querySelector('#result-count').textContent = '';
+}
+
+// 404 and 500 do not go to catch by themselves, so check response.ok
+async function fetchBooks() {
+  const response = await fetch(DATA_URL);
+  if (!response.ok) throw new Error('HTTP ' + response.status);
+  return response.json();
+}
+
 function initHomePage() {
-  const allBooks = [...loadSavedBooks(), ...books];
   const form = document.querySelector('#search-form');
   const input = document.querySelector('#q');
+  let allBooks = [];
+  let loaded = false;
 
   const filter = () => {
+    if (!loaded) return; // nothing to search while loading or after an error
     const query = input.value.trim().toLowerCase();
     const result = allBooks.filter((book) =>
       book.title.toLowerCase().includes(query) || book.course.toLowerCase().includes(query)
@@ -95,13 +132,26 @@ function initHomePage() {
     renderBooks(result);
   };
 
+  async function loadBooks() {
+    loaded = false;
+    renderLoading();
+    try {
+      const books = await fetchBooks();
+      allBooks = [...loadSavedBooks(), ...books];
+      loaded = true;
+      filter(); // success (or empty, if the search box already has text)
+    } catch (error) {
+      renderError(error.message, loadBooks);
+    }
+  }
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     filter();
   });
   input.addEventListener('input', filter);
 
-  renderBooks(allBooks);
+  loadBooks();
 }
 
 /* ---------- Post page: validation ---------- */

@@ -182,3 +182,8 @@ input, select, textarea {
 .form-status.is-error { background: #fde8ea; color: #8a0018; border: 1px solid #b00020; }
 .form-status.is-success { background: #e6f4ea; color: #14532d; border: 1px solid #1a7f37; }
 .card .new { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; background: var(--dark); color: #fff !important; font-size: .75rem; }
+
+/* Week 4 – loading and error states */
+.loading { grid-column: 1 / -1; color: var(--muted); }
+.load-error { grid-column: 1 / -1; padding: 16px; border-radius: 8px; background: #fde8ea; border: 1px solid #b00020; }
+.load-error p { margin: 0 0 12px; color: #8a0018; font-weight: 600; }

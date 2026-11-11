@@ -29,6 +29,20 @@ Live: https://fallenhak.github.io/mis457-campusswap/
 - **Validation:** the "Post a book" form uses `preventDefault()` and shows a clear error message under each invalid field (title, course code format, condition, sell/swap, price, name, email), plus a summary message at the top
 - **Bonus:** a valid listing is saved to `localStorage` and appears first on the home page with a "New" badge
 
+## Week 4 – Fetch, async/await and JSON
+
+- `data.json` – the listings moved out of `app.js` into a JSON file
+- **Fetch:** `app.js` loads `data.json` with `fetch` and `async` / `await` inside `try` / `catch`, and checks `response.ok` so a 404 or 500 is shown as an error
+- **Four UI states** on the home page:
+  - **Loading** – "Loading books..." while the request is waiting
+  - **Success** – the cards are built from the fetched data
+  - **Empty** – "No books match your search." when the search finds nothing
+  - **Error** – "Something went wrong..." with the HTTP status and a "Try again" button
+- **Search** still filters live by title or course code, now on the fetched data
+- Listings posted from the form (`localStorage`) are still shown first
+
+Run it with Live Server (Go Live) or the live link: `fetch` does not work when the file is opened with a double-click.
+
 ## Lighthouse
 
 Accessibility score: **100**
